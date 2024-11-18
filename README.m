@@ -1,4 +1,4 @@
--- Criação da tabela de clientes
+-- Criacao da tabela de clientes
 CREATE TABLE Cliente (
     id_cliente INT AUTO_INCREMENT PRIMARY KEY,
     nome_cliente VARCHAR(100),
@@ -11,7 +11,7 @@ CREATE TABLE Cliente (
     data_cadastro DATE
 );
 
--- Criação da tabela de fornecedores
+-- Criacao da tabela de fornecedores
 CREATE TABLE Fornecedor (
     id_fornecedor INT AUTO_INCREMENT PRIMARY KEY,
     nome_fornecedor VARCHAR(100),
@@ -20,7 +20,7 @@ CREATE TABLE Fornecedor (
     email_fornecedor VARCHAR(100)
 );
 
--- Criação da tabela de produtos
+-- Criacao da tabela de produtos
 CREATE TABLE Produto (
     id_produto INT AUTO_INCREMENT PRIMARY KEY,
     nome_produto VARCHAR(100),
@@ -32,7 +32,7 @@ CREATE TABLE Produto (
     FOREIGN KEY (id_fornecedor) REFERENCES Fornecedor(id_fornecedor)
 );
 
--- Criação da tabela de pedidos
+-- Criacao da tabela de pedidos
 CREATE TABLE Pedido (
     id_pedido INT AUTO_INCREMENT PRIMARY KEY,
     id_cliente INT,
@@ -45,7 +45,7 @@ CREATE TABLE Pedido (
     FOREIGN KEY (id_vendedor) REFERENCES Vendedor(id_vendedor)
 );
 
--- Criação da tabela de produto-pedido
+-- Criacao da tabela de produto-pedido
 CREATE TABLE Produto_Pedido (
     id_produto INT,
     id_pedido INT,
@@ -56,20 +56,20 @@ CREATE TABLE Produto_Pedido (
     FOREIGN KEY (id_pedido) REFERENCES Pedido(id_pedido)
 );
 
--- Criação da tabela de pagamentos
+-- Criacao da tabela de pagamentos
 CREATE TABLE Pagamento (
     id_pagamento INT AUTO_INCREMENT PRIMARY KEY,
     id_pedido INT,
     id_cliente INT,
     data_pagamento DATE,
     valor_pago DECIMAL(10,2),
-    metodo_pagamento ENUM('Cartão de Crédito', 'Boleto', 'Pix'),
+    metodo_pagamento ENUM('Cartao de Credito', 'Boleto', 'Pix'),
     status_pagamento ENUM('Pago', 'Pendente', 'Cancelado'),
     FOREIGN KEY (id_pedido) REFERENCES Pedido(id_pedido),
     FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente)
 );
 
--- Criação da tabela de entregas
+-- Criacao da tabela de entregas
 CREATE TABLE Entrega (
     id_entrega INT AUTO_INCREMENT PRIMARY KEY,
     id_pedido INT,
@@ -80,7 +80,7 @@ CREATE TABLE Entrega (
     FOREIGN KEY (id_pedido) REFERENCES Pedido(id_pedido)
 );
 
--- Criação da tabela de vendedores
+-- Criacao da tabela de vendedores
 CREATE TABLE Vendedor (
     id_vendedor INT AUTO_INCREMENT PRIMARY KEY,
     nome_vendedor VARCHAR(100),
@@ -90,7 +90,7 @@ CREATE TABLE Vendedor (
 
 -- Inserir um cliente PF
 INSERT INTO Cliente (nome_cliente, email, telefone, endereco, tipo_cliente, cpf, data_cadastro) 
-VALUES ('João da Silva', 'joao@example.com', '1234567890', 'Rua A, 123', 'PF', '12345678901', '2024-11-18');
+VALUES ('Joao da Silva', 'joao@example.com', '1234567890', 'Rua A, 123', 'PF', '12345678901', '2024-11-18');
 
 -- Inserir um fornecedor
 INSERT INTO Fornecedor (nome_fornecedor, endereco_fornecedor, telefone_fornecedor, email_fornecedor)
@@ -98,7 +98,7 @@ VALUES ('Fornecedor ABC', 'Rua B, 456', '0987654321', 'abc@fornecedor.com');
 
 -- Inserir um produto
 INSERT INTO Produto (nome_produto, descricao_produto, preco, quantidade_estoque, id_fornecedor, categoria_produto)
-VALUES ('Produto 1', 'Descrição do Produto 1', 50.00, 100, 1, 'Eletrônicos');
+VALUES ('Produto 1', 'Descricao do Produto 1', 50.00, 100, 1, 'Eletronicos');
 
 -- Inserir um vendedor
 INSERT INTO Vendedor (nome_vende
@@ -144,21 +144,21 @@ Este projeto visa modelar e implementar um banco de dados para um sistema de e-c
 
 As tabelas do banco de dados incluem:
 
-- **Cliente**: Informações sobre os clientes (Pessoa Física ou Jurídica).
-- **Produto**: Informações sobre os produtos vendidos.
-- **Fornecedor**: Informações sobre os fornecedores de produtos.
+- **Cliente**: Informacoes sobre os clientes (Pessoa Fisica ou Juridica).
+- **Produto**: Informacoes sobre os produtos vendidos.
+- **Fornecedor**: Informacoes sobre os fornecedores de produtos.
 - **Pedido**: Relacionamento entre clientes e os pedidos feitos.
-- **Pagamento**: Informações sobre os pagamentos realizados pelos clientes.
-- **Entrega**: Informações sobre o status e rastreio das entregas.
-- **Vendedor**: Informações sobre os vendedores responsáveis pelos pedidos.
+- **Pagamento**: Informacoes sobre os pagamentos realizados pelos clientes.
+- **Entrega**: Informacoes sobre o status e rastreio das entregas.
+- **Vendedor**: Informacoes sobre os vendedores responsaveis pelos pedidos.
 
 ## Consultas SQL
 
 Algumas das principais consultas realizadas no banco de dados incluem:
 
 - Quantidade de pedidos por cliente.
-- Relação entre vendedores e fornecedores.
+- Relacao entre vendedores e fornecedores.
 - Relacionamento entre produtos, fornecedores e estoques.
-- Produtos com valores acima da média de preço.
+- Produtos com valores acima da media de preco.
 
 
