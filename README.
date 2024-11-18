@@ -1,0 +1,140 @@
+CREATE TABLE Cliente (
+    id_cliente INT AUTO_INCREMENT PRIMARY KEY,
+    nome_cliente VARCHAR(100),
+    telefone VARCHAR(15),
+    endereco VARCHAR(255),
+    email VARCHAR(100),
+    tipo_cliente ENUM('PF', 'PJ'),
+    cpf VARCHAR(14) NULL,
+    cnpj VARCHAR(18) NULL,
+    CHECK (cpf IS NOT NULL OR cnpj IS NOT NULL)
+);
+CREATE TABLE Veiculo (
+    id_veiculo INT AUTO_INCREMENT PRIMARY KEY,
+    id_cliente INT,
+    placa VARCHAR(7) UNIQUE,
+    modelo VARCHAR(50),
+    ano INT,
+    cor VARCHAR(30),
+    FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente)
+);
+CREATE TABLE Mecanico (
+    id_mecanico INT AUTO_INCREMENT PRIMARY KEY,
+    nome_mecanico VARCHAR(100),
+    codigo_mecanico VARCHAR(50) UNIQUE,
+    endereco VARCHAR(255),
+    especialidade VARCHAR(50)
+);
+CREATE TABLE Ordem_Servico (
+    id_os INT AUTO_INCREMENT PRIMARY KEY,
+    id_veiculo INT,
+    numero_os VARCHAR(50) UNIQUE,
+    data_emissao DATECREATE TABLE Tabela_Mao_Obra (
+    id_servico INT,
+    valor_hora DECIMAL(10,2),
+    FOREIGN KEY (id_servico) REFERENCES Servico(id_servico)
+);
+CREATE TABLE Servico (
+    id_servico INT AUTO_INCREMENT PRIMARY KEY,
+    descricao_servico VARCHAR(255),
+    valor_manoobra DECIMAL(10,2),
+    tempo_estimado INT
+);
+CREATE TABLE Tabela_Mao_Obra (
+    id_servico INT,
+    valor_hora DECIMAL(10,2),
+    FOREIGN KEY (id_servico) REFERENCES Servico(id_servico)
+);
+CREATE TABLE Peca (
+    id_peca INT AUTO_INCREMENT PRIMARY KEY,
+    descricao_peca VARCHAR(255),
+    custo_peca DECIMAL(10,2),
+    fornecedor VARCHAR(100)
+);
+CREATE TABLE Mecanico_OS (
+    id_mecanico INT,
+    id_os INT,
+    funcao VARCHAR(50),
+    PRIMARY KEY (id_mecanico, id_os),
+    FOREIGN KEY (id_mecanico) REFERENCES Mecanico(id_mecanico),
+    FOREIGN KEY (id_os) REFERENCES Ordem_Servico(id_os)
+);
+CREATE TABLE Servico_OS (
+    id_os INT,
+    id_servico INT,
+    quantidade INT,
+    valor_servico DECIMAL(10,2),
+    PRIMARY KEY (id_os, id_servico),
+    FOREIGN KEY (id_os) REFERENCES Ordem_Servico(id_os),
+    FOREIGN KEY (id_servico) REFERENCES Servico(id_servico)
+);
+CREATE TABLE Peca_OS (
+    id_os INT,
+    id_peca INT,
+    quantidade INT,
+    custo_peca DECIMAL(10,2),
+    PRIMARY KEY (id_os, id_peca),
+    FOREIGN KEY (id_os) REFERENCES Ordem_Servico(id_os),
+    FOREIGN KEY (id_peca) REFERENCES Peca(id_peca)
+);
+-- Inserir Cliente PF
+INSERT INTO Cliente (nome_cliente, telefone, endereco, email, tipo_cliente, cpf)
+VALUES ('João da Silva', '1234567890', 'Rua A, 123', 'joao@exemplo.com', 'PF', '12345678901');
+
+-- Inserir Veículo
+INSERT INTO Veiculo (id_cliente, placa, modelo, ano, cor)
+VALUES (1, 'ABC1234', 'Fusca', 1975, 'Azul');
+
+-- Inserir Mecânico
+INSERT INTO Mecanico (nome_mecanico, codigo_mecanico, endereco, especialidade)
+VALUES ('Carlos Oliveira', 'MEC001', 'Rua B, 456', 'Motor');
+
+-- Inserir Ordem de Serviço
+INSERT INTO Ordem_Servico (id_veiculo, numero_os, data_emissao, valor_total, status)
+VALUES (1, 'OS001', '2024-11-18', 300.00, 'Em andamento');
+
+-- Inserir Serviço
+INSERT INTO Servico (descricao_servico, valor_manoobra, tempo_estimado)
+VALUES ('Troca de óleo', 50.00, 60);
+
+-- Inserir Tabela de Mão de Obra
+INSERT INTO Tabela_Mao_Obra (id_servico, valor_hora)
+VALUES (1, 25.00);
+
+-- Inserir Peça
+INSERT INTO Peca (descricao_peca, custo_peca, fornecedor)
+VALUES ('Óleo do motor', 50.00, 'Fornecedor ABC');
+
+-- Inserir Mecânico-OS
+INSERT INTO Mecanico_OS (id_mecanico, id_os, funcao)
+VALUES (1, 1, 'Chefe de equipe');
+
+-- Inserir Serviço-OS
+INSERT INTO Servico_OS (id_os, id_servico, quantidade, valor_servico)
+VALUES (1, 1, 1, 50.00);
+
+-- Inserir Peça-OS
+INSERT INTO Peca_OS (id_os, id_peca, quantidade, custo_peca)
+VALUES (1, 1, 1, 50.00);
+# Sistema de Controle de Oficina Mecânica
+
+Este projeto implementa o modelo lógico de um banco de dados para o controle e gerenciamento de uma oficina mecânica. O banco de dados contém informações sobre clientes, veículos, mecânicos, ordens de serviço, serviços prestados, peças utilizadas e pagamentos.
+
+## Estrutura do Banco de Dados
+
+As principais tabelas incluem:
+
+- **Cliente**: Informações sobre clientes (Pessoa Física ou Jurídica).
+- **Veículo**: Informações sobre veículos dos clientes.
+- **Mecânico**: Informações sobre os mecânicos da oficina.
+- **Ordem de Serviço**: Detalhes das ordens de serviço criadas.
+- **Serviço**: Serviços prestados aos veículos.
+- **Peça**: Peças utilizadas nas ordens de serviço.
+
+## Consultas SQL
+
+Algumas das principais consultas realizadas incluem:
+
+- Quantidade de serviços realizados por cada mecânico.
+- Total de valor gasto por cliente em serviços e peças.
+- Relação de serviços realizados em veículos específicos.
