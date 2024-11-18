@@ -1,0 +1,108 @@
+-- Tabela Cliente
+CREATE TABLE Cliente (
+    id_cliente INT AUTO_INCREMENT PRIMARY KEY,
+    nome_cliente VARCHAR(100),
+    telefone VARCHAR(15),
+    endereco VARCHAR(255),
+    email VARCHAR(100),
+    tipo_cliente ENUM('PF', 'PJ'),
+    cpf VARCHAR(14) NULL,
+    cnpj VARCHAR(18) NULL,
+    CHECK (cpf IS NOT NULL OR cnpj IS NOT NULL)
+);
+
+-- Tabela Veículo
+CREATE TABLE Veiculo (
+    id_veiculo INT AUTO_INCREMENT PRIMARY KEY,
+    id_cliente INT,
+    placa VARCHAR(7) UNIQUE,
+    modelo VARCHAR(50),
+    ano INT,
+    cor VARCHAR(30),
+    FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente)
+);
+
+-- Tabela Mecânico
+CREATE TABLE Mecanico (
+    id_mecanico INT AUTO_INCREMENT PRIMARY KEY,
+    nome_mecanico VARCHAR(100),
+    codigo_mecanico VARCHAR(50) UNIQUE,
+    endereco VARCHAR(255),
+    especialidade VARCHAR(50)
+);
+
+-- Tabela Ordem de Serviço
+CREATE TABLE Ordem_Servico (
+    id_os INT AUTO_INCREMENT PRIMARY KEY,
+    id_veiculo INT,
+    numero_os VARCHAR(50) UNIQUE,
+    data_emissao DATE,
+    data_conclusao DATE NULL,
+    valor_total DECIMAL(10,2),
+    status ENUM('Em andamento', 'Concluído', 'Cancelado'),
+    observacoes TEXT,
+    FOREIGN KEY (id_veiculo) REFERENCES Veiculo(id_veiculo)
+);
+
+-- Continuação da criação das demais tabelas (Serviço, Peça, etc.)
+-- Inserir Cliente
+INSERT INTO Cliente (nome_cliente, telefone, endereco, email, tipo_cliente, cpf)
+VALUES ('João da Silva', '1234567890', 'Rua A, 123', 'joao@exemplo.com', 'PF', '12345678901');
+
+-- Inserir Veículo
+INSERT INTO Veiculo (id_cliente, placa, modelo, ano, cor)
+VALUES (1, 'ABC1234', 'Fusca', 1975, 'Azul');
+
+-- Inserir Ordem de Serviço
+INSERT INTO Ordem_Servico (id_veiculo, numero_os, data_emissao, valor_total, status)
+VALUES (1, 'OS001', '2024-11-18', 300.00, 'Em andamento');
+SELECT 
+    
+m.nome_mecanico, 
+    COUNT(s.id_servico) AS total_servicos
+FROM Mecanico m
+JOIN Mecanico_OS mo ON m.id_mecanico = mo.id_mecanico
+JOIN Servico_OS so ON mo.id_os = so.id_os
+JOIN Servico s ON so.id_servico = s.id_servico
+GROUP BY m.id_mecanico;
+SELECT 
+    
+c.nome_cliente, 
+    SUM(so.valor_servico) + SUM(po.custo_peca) AS total_gasto
+FROM Cliente c
+JOIN Veiculo v ON c.id_cliente = v.id_cliente
+JOIN Ordem_Servico os ON v.id_veiculo = os.id_veiculo
+JOIN Servico_OS so ON os.id_os = so.id_os
+JOIN Peca_OS po ON os.id_os = po.id_os
+GROUP BY c.id_cliente;
+SELECT 
+
+SELECT 
+    v.modelo, 
+    os.numero_os, 
+    os.status
+FROM Veiculo v
+JOIN Ordem_Servico os ON v.id_veiculo = os.id_veiculo
+WHERE os.status = 'Em andamento';
+# Sistema de Controle de Oficina Mecânica
+
+Este projeto implementa o modelo lógico de um banco de dados para o controle e gerenciamento de uma oficina mecânica. O banco de dados contém informações sobre clientes, veículos, mecânicos, ordens de serviço, serviços prestados, peças utilizadas e pagamentos.
+
+## Estrutura do Banco de Dados
+
+As principais tabelas incluem:
+
+- **Cliente**: Informações sobre clientes (Pessoa Física ou Jurídica).
+- **Veículo**: Informações sobre veículos dos clientes.
+- **Mecânico**: Informações sobre os mecânicos da oficina.
+- **Ordem de Serviço**: Detalhes das ordens de serviço criadas.
+- **Serviço**: Serviços prestados aos veículos.
+- **Peça**: Peças utilizadas nas ordens de serviço.
+
+## Consultas SQL
+
+Algumas das principais consultas realizadas incluem:
+
+- Quantidade de serviços realizados por cada mecânico.
+- Total de valor gasto por cliente em serviços e peças.
+- Relação de serviços realizados em veículos específicos.
