@@ -1,0 +1,67 @@
+meu-projeto/
+│
+├── docs/                          # Documentação do projeto
+│   ├── README.md                  # Descrição do projeto
+│   └── guia_instalacao.md         # Como rodar o projeto, dependências
+│
+├── src/                           # Código-fonte do projeto
+│   ├── main.py                    # Arquivo principal de execução (exemplo)
+│   └── banco_dados.py             # Scripts de banco de dados ou consultas
+│
+├── sql/                           # Scripts SQL
+│   ├── create_schema.sql          # Script para criar o banco de dados
+│   ├── insercao_dados.sql         # Script para inserir dados de teste
+│   └── queries_complexas.sql      # Consultas SQL avançadas
+│
+├── powerbi/                       # Relatórios do Power BI
+│   └── analise_vendas.pbix        # Arquivo PBIX com análise de vendas
+│
+├── figma/                         # Arquivos Figma (se aplicável)
+│   └── template_figma.fig         # Arquivo de template Figma (se necessário)
+│
+└── .gitignore                     # Ignora arquivos temporários e de configuração local
+# Projeto E-Commerce - Banco de Dados e Análise de Vendas
+
+Este repositório contém o modelo de banco de dados e a análise de vendas de uma loja online. O projeto foi desenvolvido com o objetivo de demonstrar habilidades de modelagem de banco de dados e análise de dados.
+
+## Estrutura do Projeto
+
+- **docs/**: Contém a documentação do projeto, incluindo um guia de instalação.
+- **src/**: Contém o código-fonte do projeto, incluindo a lógica para interagir com o banco de dados.
+- **sql/**: Contém scripts SQL para criação do banco de dados e inserção de dados de teste.
+- **powerbi/**: Contém arquivos Power BI com relatórios de vendas.
+- **figma/**: Contém o template de interface feito no Figma.
+
+## Como Rodar o Projeto
+
+### Pré-requisitos
+
+- Python 3.x
+- MySQL ou qualquer outro SGBD
+- Power BI (caso queira visualizar os relatórios)
+
+pip install -r requirements.txt
+
+
+### 5. **Cometendo e Enviando os Arquivos**
+
+Após adicionar os arquivos e estruturar o projeto, envie tudo para o repositório no GitHub:
+
+```bash
+git add .
+git commit -m "Adiciona estrutura inicial do projeto com banco de dados e Power BI"
+git push origin main
+
+# Ignora arquivos temporários do Python
+*.pyc
+*.pyo
+
+# Ignora arquivos de banco de dados locais
+*.db
+
+# Ignora arquivos temporários do Power BI
+*.pbix
+*.xlsx
+
+# Ignora arquivos temporários do Figma
+*.fig
