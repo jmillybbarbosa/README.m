@@ -1,0 +1,60 @@
+projeto-analise-vendas/
+│
+├── database/
+│   └── schema.sql                # Script de criação do banco de dados
+│   └── insercao_dados.sql         # Dados de teste
+│
+├── powerbi/
+│   └── analise_vendas.pbix        # Arquivo Power BI com os relatórios
+│   └── consultas.sql              # Consultas SQL relacionadas ao projeto
+│
+├── docs/
+│   └── README.md                 # Documentação principal
+│   └── guia_instalacao.md        # Guia para instalar e executar o projeto
+│
+├── figma/
+│   └── template_figma.fig         # Arquivo Figma (se aplicável)
+│
+└── .gitignore                    # Arquivo para ignorar arquivos temporários
+# Projeto de Análise de Vendas
+
+Este repositório contém um projeto de análise de vendas de uma loja online. O projeto inclui:
+
+- **Banco de dados**: Estrutura de banco de dados em MySQL (criação de tabelas, inserção de dados, etc).
+- **Análise de Dados**: Relatórios e gráficos criados no Power BI.
+- **Consultas SQL**: Consultas para gerar relatórios de vendas e análise de performance.
+
+## Estrutura do Projeto
+
+- **database/**: Scripts SQL para criação do banco de dados e inserção de dados.
+- **powerbi/**: Arquivo Power BI (.pbix) com relatórios interativos.
+- **docs/**: Documentação do projeto e guia de instalação.
+- **figma/**: Template Figma para protótipo de interface (se aplicável).
+
+#### **Guia de Instalação**
+Um arquivo adicional `guia_instalacao.md` pode ser útil caso você precise explicar como configurar o ambiente, como instalar dependências, ou qualquer outra configuração importante para que o projeto funcione corretamente.
+
+Exemplo de como estruturar este arquivo:
+
+```markdown
+# Guia de Instalação
+
+## Banco de Dados
+
+### **5. Versionamento e Commits**
+Certifique-se de usar boas práticas de versionamento de código:
+
+- **Commits claros**: Sempre escreva mensagens de commit claras que descrevam a mudança feita. Exemplo:
+   - `Adicionado script SQL para criação das tabelas de vendas e clientes.`
+   - `Incluído arquivo PBIX com análise de vendas por segmento.`
+
+- **Usar o `.gitignore`**: Crie um arquivo `.gitignore` para garantir que arquivos temporários e de configuração local não sejam adicionados ao repositório. Exemplo de conteúdo para `.gitignore`:
+
+```text
+*.log
+*.tmp
+*.bak
+*.pbix
+git add .
+git commit -m "Estrutura inicial do projeto com banco de dados e Power BI"
+git push origin main
